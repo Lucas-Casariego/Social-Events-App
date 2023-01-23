@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
-import './App.css'
 import axios from 'axios';
-import { IconButton} from '@mui/material';
 import {PeopleAltRounded} from '@mui/icons-material';
 
 function App() {
