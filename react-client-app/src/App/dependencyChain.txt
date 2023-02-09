@@ -1,0 +1,10 @@
+// the dependency chain is: App.tsx/components -> store -> activityStore -> agent
+
+// The agent.ts file is responsible for making API requests
+// while the activityStore.ts file is responsible for managing the state of activities in the application using MobX
+// to do an analogy with the backend:
+// the agent.ts file is like a repository
+// the activityStore.ts file is like a service
+// the App.tsx and the components are like the controllers (they are used by the App.tsx and the components)
+
+// but they are not used directly, the components use the store and the store uses the activityStore

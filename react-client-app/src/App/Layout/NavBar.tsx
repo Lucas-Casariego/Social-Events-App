@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { useStore } from "../stores/store";
 
 interface IProps {
   openForm: () => void;
@@ -20,7 +21,10 @@ interface IProps {
 const pages = ["Activities", "Create Activity"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function NavBar({ openForm }: IProps) {
+function NavBar() {
+
+  const {activityStore} = useStore()
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -144,11 +148,11 @@ function NavBar({ openForm }: IProps) {
               sx={{ my: 2, color: "white", display: "block" }}
               // it will open the form to edit the activity and close the menu (if it is open) at the same time
               onClick={() => {
-                openForm();
+                activityStore.openForm()
                 handleCloseNavMenu();
               }}
             >
-              Create Activities
+              Create Activity
             </Button>
           </Box>
           {/* Box: user avatar (open settings) */}

@@ -1,16 +1,17 @@
-import { Button, TextareaAutosize } from "@mui/material";
+import { Button, CircularProgress, TextareaAutosize } from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import { observer } from "mobx-react-lite";
 import { ChangeEvent, useState } from "react";
-import { IActivity } from "../../../App/Models/activity";
+import { useStore } from "../../../App/stores/store";
 
-interface IProps {
-  activity: IActivity | undefined;
-  closeForm: () => void;
-  createOrEdit: (activity: IActivity) => void;
-}
-// the "activity: selectedActivity" is not a type declaration, it's an alias for the activity prop
-const ActivityForm = ({ activity: selectedActivity, closeForm, createOrEdit }: IProps) => {
+
+const ActivityForm = () => {
+
+  const {activityStore} = useStore()
+
+  const {selectedActivity, closeForm, createActivity, updateActivity, loading} = activityStore
+
   const initialFormState = selectedActivity ?? {
     id: "",
     title: "",
@@ -23,8 +24,9 @@ const ActivityForm = ({ activity: selectedActivity, closeForm, createOrEdit }: I
 
   const [activity, setActivity] = useState(initialFormState);
 
-  const handleSubmit = () => {
-    createOrEdit(activity);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();  // this prevents the page from reloading when we submit the form
+    activity.id ? updateActivity(activity) : createActivity(activity);
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -112,11 +114,12 @@ const ActivityForm = ({ activity: selectedActivity, closeForm, createOrEdit }: I
         }}
       />
       <Button
+        disabled={loading}
         type="submit"
         variant="contained"
         sx={{ mt: 2, mr: 1, float: "right" }}
       >
-        Submit
+        {loading ? <CircularProgress size={24} /> : "Submit"}
       </Button>
       <Button
         onClick={closeForm}
@@ -129,4 +132,4 @@ const ActivityForm = ({ activity: selectedActivity, closeForm, createOrEdit }: I
   );
 };
 
-export default ActivityForm;
+export default observer(ActivityForm);

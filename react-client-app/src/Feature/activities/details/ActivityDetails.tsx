@@ -1,4 +1,3 @@
-import react from "react";
 import {
   Card,
   CardActions,
@@ -8,19 +7,17 @@ import {
   Typography,
   ButtonGroup,
 } from "@mui/material";
-import { IActivity } from "../../../App/Models/activity";
+import { useStore } from "../../../App/stores/store";
 
-interface IProps {
-  activity: IActivity;
-  cancelSelectActivity: () => void;
-  openForm: (id: string) => void;
-}
 
-const ActivityDetails = ({
-  activity,
-  cancelSelectActivity,
-  openForm,
-}: IProps) => {
+const ActivityDetails = () => {
+
+  const {activityStore} = useStore();
+  // alias for activity (so no refactor needed)
+  const {selectedActivity: activity, openForm, cancelSelectedActivity } = activityStore;
+
+  if(!activity) return <></>; // just to remove undefined error (you must return jsx, we checked that in ActivityDashboard )
+
   return (
     <Card sx={{ width: "400px", ml: 3, mt: 5 }}>
       <CardMedia
@@ -53,7 +50,7 @@ const ActivityDetails = ({
           </Button>
           <Button
             // we don't use the () => syntax bc we are not passing an argument to the function inside the onClick (not strictly true)
-            onClick={cancelSelectActivity}
+            onClick={cancelSelectedActivity}
             variant="outlined"
             color="warning"
           >

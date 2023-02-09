@@ -6,19 +6,31 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import { IActivity } from "../../../App/Models/activity";
 import Box from "@mui/material/Box";
+import { SyntheticEvent, useState } from "react";
+import { useStore } from "../../../App/stores/store";
+import { observer } from "mobx-react-lite";
 
-interface IProps {
-  activities: IActivity[];
-  selectActivity: (id: string) => void;
-  deleteActivity: (id: string) => void;
-}
 
-const ActivityList = ({ activities, selectActivity, deleteActivity }: IProps) => {
+const ActivityList = () => {
+
+  const { activityStore } = useStore();
+  const {deleteActivity, activitiesByDate, loading} = activityStore;
+
+  const [target, setTarget] = useState("");
+
+  const handleActivityDelete = (
+    e: SyntheticEvent<HTMLButtonElement>,
+    id: string 
+  ) => {
+    setTarget(e.currentTarget.name);
+    deleteActivity(id);
+  };
+
+
   return (
     <Box sx={{ width: "100%", maxWidth: 4000, bgcolor: "background.paper" }}>
-      {activities.map((activity) => {
+      {activitiesByDate.map((activity) => {
         return (
           <Card key={activity.id}>
             <CardContent>
@@ -35,12 +47,11 @@ const ActivityList = ({ activities, selectActivity, deleteActivity }: IProps) =>
                 color="info"
                 size="small"
                 sx={{ mt: 1 }}
-                >
+              >
                 {activity.category}
               </Button>
               <Button
-                // we use the () => syntax bc we are passing an argument to the function inside the onClick (not strictly true)
-                onClick={() => selectActivity(activity.id)}
+                onClick={() => activityStore.selectActivity(activity.id)}
                 variant="contained"
                 color="primary"
                 size="small"
@@ -48,9 +59,11 @@ const ActivityList = ({ activities, selectActivity, deleteActivity }: IProps) =>
               >
                 View
               </Button>
-              <Button 
-                // we use the () => syntax bc we are passing an argument to the function inside the onClick (not strictly true)
-                onClick={() => deleteActivity(activity.id)}
+              <Button
+                name={activity.id}
+                // instead of simply using the deleteActivity function, we use the HandleActivityDelete function
+                onClick={(e) => handleActivityDelete(e, activity.id)}
+                disabled={loading && target === activity.id}
                 variant="contained"
                 color="error"
                 size="small"
@@ -67,4 +80,4 @@ const ActivityList = ({ activities, selectActivity, deleteActivity }: IProps) =>
   );
 };
 
-export default ActivityList;
+export default observer(ActivityList);
