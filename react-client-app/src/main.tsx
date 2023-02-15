@@ -1,7 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { RouterProvider } from 'react-router-dom'
 import App from './App/layout/App'
 import './App/Layout/styles.css'
+import { router } from './App/router/routes'
 import { store, StoreContext } from './App/stores/store'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -11,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <>
   {/* we are providing our context to our application, and it has our store inside value (value={store})  */}
   <StoreContext.Provider value={store}>
-    <App />
+    <RouterProvider router={router} />
   </StoreContext.Provider>
 </>
 )

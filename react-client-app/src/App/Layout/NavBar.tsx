@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,6 +12,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useStore } from "../stores/store";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 interface IProps {
   openForm: () => void;
@@ -25,10 +26,10 @@ function NavBar() {
 
   const {activityStore} = useStore()
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(
     null
   );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(
     null
   );
 
@@ -59,26 +60,26 @@ function NavBar() {
             alt="logo"
             style={{ marginRight: "10px" }}
           />
-          <Typography
-            className="logo"
-            variant="h6"
-            noWrap
-            width={200}
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              ml: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            Reactivities
-          </Typography>
+          <NavLink to='/' style={{ textDecoration: 'none' }}>
+            <Typography
+              className="logo"
+              variant="h6"
+              noWrap
+              width={200}
+              sx={{
+                mr: 2,
+                ml: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "white",
+                textDecoration: "none",
+              }}
+            >
+              Reactivities
+            </Typography>
+          </NavLink>
           {/* Box: hamburger bar */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -138,22 +139,26 @@ function NavBar() {
           </Typography>
           {/* Box: list of link in navbar (activities, Create Activity) */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button
-              onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
-            >
-              Activities
-            </Button>
-            <Button
-              sx={{ my: 2, color: "white", display: "block" }}
-              // it will open the form to edit the activity and close the menu (if it is open) at the same time
-              onClick={() => {
-                activityStore.openForm()
-                handleCloseNavMenu();
-              }}
-            >
-              Create Activity
-            </Button>
+            <NavLink to='/activities' style={{ textDecoration: 'none' }}>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Activities
+              </Button>
+            </NavLink>
+            <NavLink to='/createActivity' style={{ textDecoration: 'none' }}>
+              <Button
+                sx={{ my: 2, color: "white", display: "block" }}
+                // it will open the form to edit the activity and close the menu (if it is open) at the same time
+                onClick={() => {
+                  activityStore.openForm()
+                  handleCloseNavMenu();
+                }}
+              >
+                Create Activity
+              </Button>
+            </NavLink>
           </Box>
           {/* Box: user avatar (open settings) */}
           <Box sx={{ flexGrow: 0 }}>

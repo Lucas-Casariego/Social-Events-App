@@ -9,7 +9,7 @@ export default class ActivityStore {
   selectedActivity: IActivity | undefined = undefined;
   editMode = false;
   loading = false;
-  loadingInitial = true;
+  loadingInitial = false;
 
   constructor() {
     // wiht makeAutoObservable we don't need to specify the observable and action decorators
@@ -26,15 +26,13 @@ export default class ActivityStore {
     );
   }
 
-  
 
   loadActivities = async () => {
-    // this.setLoadingInitial(true);
+    this.setLoadingInitial(true);
     try {
       const activities = await agent.Activities.list();
       activities.forEach((activity) => {
-        activity.date = activity.date.split("T")[0];
-        this.activityRegistry.set(activity.id, activity); // key: activity.id, value: activity
+        this.setActivity(activity);
       });
       this.setLoadingInitial(false);
     } catch (error) {
@@ -42,6 +40,41 @@ export default class ActivityStore {
       this.setLoadingInitial(false);
     }
   };
+
+
+  loadActivity = async (id: string) => {
+    let activity = this.getActivity(id);
+    // if our activity is inside the activityRegistry, we don't need to make a request to the API
+    if(activity) {
+      this.selectedActivity = activity
+      return activity;
+    }
+    // but if not, we need to make a request to the API
+    else {
+      this.setLoadingInitial(true);
+      try {
+        activity = await agent.Activities.details(id);
+        this.setActivity(activity);
+        runInAction(() => {
+          this.selectedActivity = activity;
+        });
+        this.setLoadingInitial(false);
+        return activity
+      } catch (error) {
+        console.log(error);
+        this.setLoadingInitial(false);
+      }
+    }
+  }
+
+  private getActivity = (id: string) => {
+    return this.activityRegistry.get(id);
+  }
+
+  private setActivity = (activity: IActivity) => {
+    activity.date = activity.date.split("T")[0];
+    this.activityRegistry.set(activity.id, activity); // key: activity.id, value: activity
+  }
 
   setLoadingInitial = (state: boolean) => {
     this.loadingInitial = state;
@@ -53,15 +86,6 @@ export default class ActivityStore {
 
   cancelSelectedActivity = () => {
     this.selectedActivity = undefined;
-  };
-
-  openForm = (id?: string) => {
-    id ? this.selectActivity(id) : this.cancelSelectedActivity();
-    this.editMode = true;
-  };
-
-  closeForm = () => {
-    this.editMode = false;
   };
 
   createActivity = async (activity: IActivity) => {
@@ -83,35 +107,36 @@ export default class ActivityStore {
     }
   };
 
+  // updateActivity is an async action that will update an activity in the database and in the activityRegistry
   updateActivity = async (activity: IActivity) => {
-    this.loading = true;
+    this.loading = true; // set loading to true
     try {
-      await agent.Activities.update(activity);
+      await agent.Activities.update(activity); // update the activity in the database
       runInAction(() => {
         this.activityRegistry.set(activity.id, activity); // update the activity in the activityRegistry
         this.selectedActivity = activity;
         this.editMode = false;
-        this.loading = false;
+        this.loading = false; 
       });
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        this.loading = false;
+        this.loading = false; 
       });
     }
   };
 
+
   deleteActivity = async (id: string) => {
     this.loading = true;
     try {
-      // the difference between the first delete (agent.Activities.delete(id))
-      //and second delete (this.activities = [...this.activities.filter(a => a.id !== id)])
-      // the first one is deleting the activity from the database and second one is deleting it from the local state
+      // there are two delete
+      // agent.Activities.delete(id)  that deletes from the database 
+      // and this.activityRegistry.delete(id); that deletes from the local state
 
-      agent.Activities.delete(id);
+      await agent.Activities.delete(id);
       runInAction(() => {
         this.activityRegistry.delete(id);
-        if (this.selectedActivity?.id === id) this.cancelSelectedActivity();
         this.loading = false;
       });
     } catch (error) {

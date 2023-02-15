@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import { SyntheticEvent, useState } from "react";
 import { useStore } from "../../../App/stores/store";
 import { observer } from "mobx-react-lite";
+import { Link } from "react-router-dom";
 
 
 const ActivityList = () => {
@@ -50,15 +51,16 @@ const ActivityList = () => {
               >
                 {activity.category}
               </Button>
-              <Button
-                onClick={() => activityStore.selectActivity(activity.id)}
-                variant="contained"
-                color="primary"
-                size="small"
-                sx={{ mt: 1, float: "right" }}
-              >
-                View
-              </Button>
+              <Link to={`/activities/${activity.id}`}  >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  sx={{ mt: 1, float: "right" }}
+                >
+                  View
+                </Button>
+              </Link>
               <Button
                 name={activity.id}
                 // instead of simply using the deleteActivity function, we use the HandleActivityDelete function
