@@ -1,9 +1,8 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
-import App from './App/layout/App'
-import './App/Layout/styles.css'
-import { router } from './App/router/routes'
+import './App/Layout/styles.css';
+import 'react-calendar/dist/Calendar.css';
+import { router } from './App/router/Routes'
 import { store, StoreContext } from './App/stores/store'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(

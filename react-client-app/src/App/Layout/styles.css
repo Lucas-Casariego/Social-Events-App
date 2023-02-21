@@ -12,3 +12,59 @@ body {
   margin-right: 1em;
 }
 
+.react-calendar {
+  width: 100%;
+  border: "none";
+  box-shadow: 0 1px 2px rgba(34, 36, 38, 0.15);
+}
+
+/*home page styles*/
+
+.masthead {
+  display: flex;
+  align-items: center;  /* este no funciona no se pq so pongo el de abajo */
+  text-align: center;
+  background-image: linear-gradient(
+    135deg,
+    rgb(24, 42, 115) 0%,
+    rgb(33, 138, 174) 69%,
+    rgb(32, 167, 172) 89%
+  ) !important;
+  height: 100vh;
+}
+
+.masthead h1.header {
+  color: white;
+  font-size: 3em;
+  font-weight: normal;
+}
+
+.masthead .header>img{
+  width: 50px;
+  margin-right: 0.3em;
+  margin-bottom: -0.2em;
+}
+
+.masthead h2 {
+  font-size: 1.3em;
+  font-weight: normal;
+  color: white;
+  
+}
+
+.masthead a {
+  color: white;
+  font-size: 0.75em;
+  font-weight: 600;
+  padding: 0.5em 1.2m;
+  border-radius: 0.3em;
+  border-color: white;
+  margin-top: 0.5em;
+}
+
+.masthead a:hover {
+  background-color: white;
+  color: #1b1e21;
+}
+
+/*end home page styles*/

@@ -19,6 +19,7 @@ export default class ActivityStore {
     makeAutoObservable(this);
   }
 
+  // this returns an array of IActivity sorted by date
   get activitiesByDate() {
     return Array.from(this.activityRegistry.values()).sort(
       (activityA, activityB) =>
@@ -26,6 +27,17 @@ export default class ActivityStore {
     );
   }
 
+  get groupedActivities() {
+    return Object.entries(
+      this.activitiesByDate.reduce((activities, activity) => {
+        const date = activity.date;
+                      // si ya hay act ese dia    // agregar otra      // agregar un nuevo arr con la act   
+        activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+        return activities;
+      }, {} as {[key: string]: IActivity[]})
+
+    );
+  } 
 
   loadActivities = async () => {
     this.setLoadingInitial(true);
@@ -41,12 +53,11 @@ export default class ActivityStore {
     }
   };
 
-
   loadActivity = async (id: string) => {
     let activity = this.getActivity(id);
     // if our activity is inside the activityRegistry, we don't need to make a request to the API
-    if(activity) {
-      this.selectedActivity = activity
+    if (activity) {
+      this.selectedActivity = activity;
       return activity;
     }
     // but if not, we need to make a request to the API
@@ -59,22 +70,22 @@ export default class ActivityStore {
           this.selectedActivity = activity;
         });
         this.setLoadingInitial(false);
-        return activity
+        return activity;
       } catch (error) {
         console.log(error);
         this.setLoadingInitial(false);
       }
     }
-  }
+  };
 
   private getActivity = (id: string) => {
     return this.activityRegistry.get(id);
-  }
+  };
 
   private setActivity = (activity: IActivity) => {
     activity.date = activity.date.split("T")[0];
     this.activityRegistry.set(activity.id, activity); // key: activity.id, value: activity
-  }
+  };
 
   setLoadingInitial = (state: boolean) => {
     this.loadingInitial = state;
@@ -116,22 +127,21 @@ export default class ActivityStore {
         this.activityRegistry.set(activity.id, activity); // update the activity in the activityRegistry
         this.selectedActivity = activity;
         this.editMode = false;
-        this.loading = false; 
+        this.loading = false;
       });
     } catch (error) {
       console.log(error);
       runInAction(() => {
-        this.loading = false; 
+        this.loading = false;
       });
     }
   };
-
 
   deleteActivity = async (id: string) => {
     this.loading = true;
     try {
       // there are two delete
-      // agent.Activities.delete(id)  that deletes from the database 
+      // agent.Activities.delete(id)  that deletes from the database
       // and this.activityRegistry.delete(id); that deletes from the local state
 
       await agent.Activities.delete(id);

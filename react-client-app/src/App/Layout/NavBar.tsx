@@ -15,16 +15,11 @@ import { useStore } from "../stores/store";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
-interface IProps {
-  openForm: () => void;
-}
 
 const pages = ["Activities", "Create Activity"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function NavBar() {
-
-  const {activityStore} = useStore()
 
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(
     null
@@ -150,9 +145,7 @@ function NavBar() {
             <NavLink to='/createActivity' style={{ textDecoration: 'none' }}>
               <Button
                 sx={{ my: 2, color: "white", display: "block" }}
-                // it will open the form to edit the activity and close the menu (if it is open) at the same time
                 onClick={() => {
-                  activityStore.openForm()
                   handleCloseNavMenu();
                 }}
               >
