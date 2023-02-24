@@ -1,3 +1,5 @@
+# *Social Events App* 
+
 This is a project I built while following the Udemy course "Complete Guide to Building an App with .NET Core and React" by Neil Cummings. 
 
 The goal of the app is to provide users with a social platform where they can create, manage, and attend events with other people
