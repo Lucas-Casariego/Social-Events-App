@@ -4,7 +4,6 @@
 
 This is a project I built while following the Udemy course "Complete Guide to Building an App with .NET Core and React" by Neil Cummings. 
 
-
 ## Features 
 The goal of the app is to provide users with a social platform where they can create, manage, and attend events with other people.
 The application features a user authentication system that allows users to create accounts, customize their profiles, and connect with other users. 
@@ -17,8 +16,7 @@ Although the course I took used Semantic UI as the CSS framework, I chose to use
 
 On the Backend, I used ASP.NET Core and Entity Framework Core as my ORM and implemented a RESTful API to handle the frontend requests.
 
-Additionally, I used Vite instead of Create React App as my build tool to improve the app's performance and reduce build times.
-To enhance the app's real-time features, I used SignalR to provide users with instant notifications and updates about events and invitations.
+To enhance the real-time features of the app, I incorporated SignalR to provide users with instant notifications and updates about events and invitations. Additionally, I used Vite instead of Create React App as my build tool to reduce build times
  
 ### Technologies used:
  · ASP.NET Core
