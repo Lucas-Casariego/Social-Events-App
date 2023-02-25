@@ -12,7 +12,7 @@ The app also includes a search function that allows users to find events by loca
 
 ## Technologies
 For the Frontend, I used React and Material UI to create a modern and responsive user interface. 
-Although the course I took used Semantic UI as the CSS framework, I chose to use Material UI instead for my project due to its extensive library of customizable components that enabled me to maintain a cohesive and uniform design across the app.
+Although the course I took used Semantic UI, I chose to use Material UI instead for my project due to its extensive library of customizable components that enabled me to maintain a cohesive and uniform design across the app.
 
 On the Backend, I used ASP.NET Core and Entity Framework Core as my ORM and implemented a RESTful API to handle the frontend requests.
 
