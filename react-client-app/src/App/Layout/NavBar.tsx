@@ -55,7 +55,7 @@ function NavBar() {
             alt="logo"
             style={{ marginRight: "10px" }}
           />
-          <NavLink to='/' style={{ textDecoration: 'none' }}>
+          <NavLink to="/" style={{ textDecoration: "none" }}>
             <Typography
               className="logo"
               variant="h6"
@@ -86,7 +86,7 @@ function NavBar() {
               color="inherit"
             >
               <MenuIcon />
-            </IconButton>
+              </IconButton>
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -105,36 +105,29 @@ function NavBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography
+                  component={NavLink}
+                  to="/activities"
+                  style={{ textDecoration: "none", color: "#212427" }}
+                >
+                  Activities
+                </Typography>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography
+                  component={NavLink}
+                  to="/createActivity"
+                  style={{ textDecoration: "none", color: "#212427" }}
+                >
+                  Create Activity
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
-          {/* lo que sigue es cuando la pantalla es chica */}
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
           {/* Box: list of link in navbar (activities, Create Activity) */}
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <NavLink to='/activities' style={{ textDecoration: 'none' }}>
+            <NavLink to="/activities" style={{ textDecoration: "none" }}>
               <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
@@ -142,7 +135,7 @@ function NavBar() {
                 Activities
               </Button>
             </NavLink>
-            <NavLink to='/createActivity' style={{ textDecoration: 'none' }}>
+            <NavLink to="/createActivity" style={{ textDecoration: "none" }}>
               <Button
                 sx={{ my: 2, color: "white", display: "block" }}
                 onClick={() => {
@@ -150,6 +143,16 @@ function NavBar() {
                 }}
               >
                 Create Activity
+              </Button>
+            </NavLink>
+            <NavLink to="/errors" style={{ textDecoration: "none" }}>
+              <Button
+                sx={{ my: 2, color: "white", display: "block" }}
+                onClick={() => {
+                  handleCloseNavMenu();
+                }}
+              >
+                Errors
               </Button>
             </NavLink>
           </Box>

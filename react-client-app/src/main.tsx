@@ -1,7 +1,8 @@
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
-import './App/Layout/styles.css';
+import "react-toastify/dist/ReactToastify.min.css";
 import 'react-calendar/dist/Calendar.css';
+import './App/Layout/styles.css';
 import { router } from './App/router/Routes'
 import { store, StoreContext } from './App/stores/store'
 

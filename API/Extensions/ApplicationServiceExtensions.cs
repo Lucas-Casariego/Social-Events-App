@@ -1,5 +1,7 @@
 ﻿using Application.Activities;
 using Application.Core;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -28,6 +30,11 @@ public static class ApplicationServiceExtensions
 
         services.AddMediatR(typeof(List.Handler));
         services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+        // with automatic validation, FluentValidation plugs into the validation pipeline that's part of ASP.NET Core MVC
+        // and allows models to be validated before a controller action is invoked (during model binding)
+        services.AddFluentValidationAutoValidation();
+        // Adds all validators in the assembly of the type specified by the generic parameter
+        services.AddValidatorsFromAssemblyContaining<Create>();
 
         return services;
     }

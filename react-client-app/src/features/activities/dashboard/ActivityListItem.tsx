@@ -33,7 +33,7 @@ const ActivityListItem = ({activity}: IProps) => {
           <Typography
             component={Link}
             to={`/activities/${activity.id}`}
-            style={{ textDecoration: "none", color: "black" }}
+            style={{ textDecoration: "none", color: "#212427" }}
             variant="h5"
           >
             {activity.title}

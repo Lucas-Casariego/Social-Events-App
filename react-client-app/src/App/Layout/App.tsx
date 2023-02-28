@@ -4,7 +4,8 @@ import "./styles.css";
 import { Container } from "@mui/system";
 import { observer } from "mobx-react-lite";
 import { Outlet, useLocation } from "react-router-dom";
-import HomePage from "../../Feature/home/HomePage";
+import HomePage from "../../features/home/HomePage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   // this will give us the path of what's inside the url
@@ -12,6 +13,7 @@ function App() {
   
   return (
     <div className="App">
+      <ToastContainer position="bottom-right" hideProgressBar theme="colored" />
       {location.pathname === "/" ? <HomePage /> : (
         <>
           <Navbar />

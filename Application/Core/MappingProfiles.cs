@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Domain;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Application.Core;
 
