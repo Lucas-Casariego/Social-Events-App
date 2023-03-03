@@ -10,18 +10,31 @@ The application features a user authentication system that allows users to creat
 Users can create events, invite friends, and manage their event details such as location, time, and date. 
 The app also includes a search function that allows users to find events by location, category, or keywords.
 
-## Technologies
-For the Frontend, I used React and Material UI to create a modern and responsive user interface. 
-Although the course I took used Semantic UI, I chose to use Material UI instead for my project due to its extensive library of customizable components that enabled me to maintain a cohesive and uniform design across the app.
+## Architecture:
+The app is built using the Clean Architecture pattern which provides a clear separation of concerns and makes the codebase easier to maintain and scale. 
 
-On the Backend, I used ASP.NET Core and Entity Framework Core as my ORM and implemented a RESTful API to handle the frontend requests.
+The application also implements the CQRS (Command Query Responsibility Segregation) and Mediator patterns to enhance performance, scalability, and security, while preventing merge conflicts at the domain level.
 
-To enhance the real-time features of the app, I incorporated SignalR to provide users with instant notifications and updates about events and invitations. Additionally, I used Vite instead of Create React App as my build tool to reduce build times
+## Frontend: 
+I used React with Typescript and Material UI to create a modern and responsive user interface. 
+
+Although the course I took used Semantic UI, I chose to use Material UI instead for my project due to its popularity and extensive library of customizable components that enabled me to maintain a cohesive and uniform design across the app.
+
+## Backend:
+I used ASP.NET Core and Entity Framework Core as my ORM and implemented a RESTful API to handle the frontend requests.
+To provide secure user authentication, I set up and configured ASP.NET Core identity
+Additionally, I incorporated SignalR to enhance the real-time features of the app, providing users with instant notifications and updates about events and invitations.
  
 ### Technologies used:
  · ASP.NET Core
- · Entity Framework Core
  · React
+ · C#
+ · Typescript
+ · Entity Framework Core
  · Material UI
  · Vite
  · SignalR
+
+ 
+ 
+ 
