@@ -1,5 +1,6 @@
 import { LocationOn } from "@mui/icons-material";
 import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, createStyles, Divider, List, ListItem, ListItemAvatar, ListItemText, makeStyles, Paper, Theme, Typography } from "@mui/material";
+import { format } from "date-fns";
 import { useState, SyntheticEvent } from "react";
 import { Link } from "react-router-dom";
 import { IActivity } from "../../../App/models/activity";
@@ -45,7 +46,7 @@ const ActivityListItem = ({activity}: IProps) => {
       <Divider />
       <CardContent sx={{display: 'flex'}}>
         <Typography variant="body2" color="textSecondary" style={{fontSize: '1.1em'}}>
-          {activity.date}
+          {format(activity.date!, 'dd MMM yyyy h:mm aa')}
         </Typography>
         <Typography variant="body2" color="textSecondary" style={{marginLeft: '1em', fontSize: '1.1em'}}>
           <LocationOn fontSize="small" />

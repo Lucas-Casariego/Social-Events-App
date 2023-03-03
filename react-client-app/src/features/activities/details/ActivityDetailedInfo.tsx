@@ -4,6 +4,7 @@ import { Typography, Grid, Paper, Divider } from '@mui/material';
 import { Info, DateRange, Room, GitHub } from '@mui/icons-material';
 import { IActivity } from '../../../App/models/activity';
 import { CSSProperties } from 'react';
+import { format } from 'date-fns';
 
 // a object for styling the paper
 
@@ -34,7 +35,7 @@ const ActivityDetailedInfo = ({ activity }: Props) => {
         <Paper style={paperStyle}>
           <Typography variant="body1" >
             <DateRange color="primary" style={ActivitiyIconStyle}/>
-            {activity.date}
+            {format(activity.date!, 'dd MMM yyyy h:mm aa')}
           </Typography>
         </Paper>
         <Divider light />

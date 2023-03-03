@@ -1,6 +1,8 @@
 import { Paper, Grid, Typography, Button } from "@mui/material";
+import { format } from "date-fns";
 import { observer } from "mobx-react-lite";
 import React, { CSSProperties } from "react";
+import { Link } from "react-router-dom";
 import { IActivity } from "../../../App/models/activity";
 
 const activityImageStyle = {
@@ -42,7 +44,7 @@ const ActivityDetailedHeader = ({ activity }: IProps) => {
                 {activity.title}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
-                {activity.date}
+                {format(activity.date!, "dd MMM yyyy")}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
                 Hosted by <strong>Bob</strong>
@@ -62,7 +64,7 @@ const ActivityDetailedHeader = ({ activity }: IProps) => {
           <Button color="primary" variant="contained" style={activitybuttonStyle}>
             Cancel attendance
           </Button>
-          <Button color="secondary" variant="contained" style={{marginLeft: "35%"}}>
+          <Button component={Link} to={`/manage/${activity.id}`} color="secondary" variant="contained" style={{marginLeft: "35%"}}>
             Manage Event
           </Button>
         </Grid>

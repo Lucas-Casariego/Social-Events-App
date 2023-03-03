@@ -1,5 +1,6 @@
 body {
   background-color: #EAEAEA;
+  margin: 0;
 }
 
 .navbar {
@@ -12,10 +13,18 @@ body {
   margin-right: 1em;
 }
 
+/* react calendar */
 .react-calendar {
   width: 100%;
   border: "none";
   box-shadow: 0 1px 2px rgba(34, 36, 38, 0.15);
+}
+
+/* react-datepicker */
+
+.react-datepicker__input-container > input {
+  width: 100%;
+  padding: 0.7em;
 }
 
 /*home page styles*/
