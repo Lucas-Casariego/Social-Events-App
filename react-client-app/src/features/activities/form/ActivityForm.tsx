@@ -1,4 +1,4 @@
-import { Button, Card, CircularProgress } from "@mui/material";
+import { Button, Card, CircularProgress, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Formik, Form } from "formik";
 import { observer } from "mobx-react-lite";
@@ -66,25 +66,27 @@ const ActivityForm = () => {
         ...activity,
         id: uuid()
       }
-      createActivity(newActivity).then(() => history.push(`/activities/${newActivity.id}`))
+      createActivity(newActivity).then(() => navigate(`/activities/${newActivity.id}`))
     } else {
-      updateActivity(activity).then(() => history.push(`/activities/${activity.id}`))
+      updateActivity(activity).then(() => navigate(`/activities/${activity.id}`))
     }
+  }
 
 
 
   if (loadingInitial) return <LoadingComponent />;
   return (
     <Box width="80%" maxWidth={1000} mt={5}>
+      <Typography variant="h5" color="initial" mb={2}>Activity Details</Typography>
       <Card sx={{ padding: "1em 2.5em 1em 1em" }}>
         <Formik
           validationSchema={validationSchema}
           enableReinitialize
           initialValues={activity}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => handleFormSubmit(values)}
         >
           {/* formik provides us render props */}
-          {({ handleSubmit }) => (
+          {({ handleSubmit, isValid, isSubmitting, dirty }) => (
             <Form onSubmit={handleSubmit} autoComplete="off">
               <MyTextInput name="title" placeholder="Title" />
               <MyTextArea
@@ -98,8 +100,6 @@ const ActivityForm = () => {
                 label="Category"
                 placeholder="Category"
               />
-              <MyTextInput name="city" placeholder="City" />
-              <MyTextInput name="venue" placeholder="Venue" />
               <MyDateInput
                 name="date"
                 placeholderText="Date"
@@ -107,8 +107,11 @@ const ActivityForm = () => {
                 timeCaption="time"
                 dateFormat="MMMM d, yyyy h:mm aa"
               />
+              <Typography variant="h6" color="initial">Location Details</Typography>
+              <MyTextInput name="city" placeholder="City" />
+              <MyTextInput name="venue" placeholder="Venue" />
               <Button
-                disabled={loading}
+                disabled={isSubmitting || !dirty || !isValid}
                 type="submit"
                 variant="contained"
                 sx={{ mt: 1.5, mr: 1, float: "right" }}
@@ -132,5 +135,4 @@ const ActivityForm = () => {
     </Box>
   );
 };
-
 export default observer(ActivityForm);

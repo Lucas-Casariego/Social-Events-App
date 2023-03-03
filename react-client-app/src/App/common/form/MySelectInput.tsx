@@ -34,7 +34,6 @@ const MySelectInput = (props: IMySelectInputProps) => {
         {props.options.map((opt: any, index: number) => (
           <MenuItem key={index} value={opt.value}>{opt.text}</MenuItem>
         ))}
-        {/* <MenuItem value="other">Other</MenuItem> */}
       </Select>
       {meta.touched && meta.error ? (
         <div>
