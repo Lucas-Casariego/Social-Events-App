@@ -1,4 +1,4 @@
-# *Aplicación de Eventos Sociales*
+# *App de Eventos Sociales*
 
 ## Descripción
 Este es un proyecto que desarrollé mientras seguía el curso de Udemy "Complete Guide to Building an App with .NET Core and React" de Neil Cummings.
