@@ -1,0 +1,44 @@
+# fly.toml app configuration file generated for reactivities-lucascasariego on 2023-04-27T15:38:33-03:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "reactivities-lucascasariego"
+primary_region = "gru"
+kill_signal = "SIGINT"
+kill_timeout = 5
+
+[experimental]
+  auto_rollback = true
+
+[build]
+  image = "lucascasariego/reactivities:latest"
+
+[env]
+  ASPNETCORE_URLS = "http://+:8080"
+  Cloudinary__ApiKey = "978379163267512"
+  Cloudinary__CloudName = "dfclap8iz"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "1s"
+    restart_limit = 0
