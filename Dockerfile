@@ -17,8 +17,8 @@ COPY . .
 WORKDIR /app
 RUN dotnet publish -c Release -o out
 
-# build a runtime image
+# build a runtime image (with the build version that we created (build-env) )
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT [ "dotnet", "API.dll" ]
+ENTRYPOINT [ "dotnet", "API.dll" ] 
