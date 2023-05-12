@@ -26,6 +26,11 @@ namespace API.Extensions
                 string connStr;
                 // Depending on if in development or production, use either FlyIO
                 // connection string, or development connection string from env var.
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> a31700e (Social Events App)
                 if (env == "Development")
                 {
                     // Use connection string from file.
